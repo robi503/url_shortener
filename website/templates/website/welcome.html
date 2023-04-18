@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} Welcome {% endblock %}
+
+{% block content%}
+    <h1>Welcome to the URL shortener</h1>
+    <ul>
+        <li>
+            <form class="logout-link" action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </li>
+    </ul>
+    <h2>URLs</h2>
+    <ul>
+        {% for link in links %}
+            <li>
+                <p></p>
+                <a href="{{ link.original_url }}">
+                    {{ link.original_url }}                    
+                </a>
+                <p>Short url: </p>
+                <a href="{% url 'short' link.short_url %}">
+                    http://{{ link.short_url }}                    
+                </a>
+                </a>
+                <p>redirect counter: {{ link.red_counter }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'new_url' %}">
+        Add URL
+    </a>
+{% endblock %}
